@@ -2,6 +2,7 @@ package org.example;
 
 public class TreeNode {
     int val;
+    int hd;
     TreeNode left;
     TreeNode right;
 

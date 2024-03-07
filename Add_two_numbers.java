@@ -8,28 +8,32 @@ class ListNode {
 }
 public class Add_two_numbers {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode dummyHead = new ListNode(0);
-        ListNode tail = dummyHead;
+        ListNode dummyNode = new ListNode(-1);
+        ListNode current = dummyNode;
+        ListNode temp1 = l1;
+        ListNode temp2 = l2;
         int carry = 0;
-
-        while (l1 != null || l2 != null || carry != 0) {
-            int digit1 = (l1 != null) ? l1.val : 0;
-            int digit2 = (l2 != null) ? l2.val : 0;
-
-            int sum = digit1 + digit2 + carry;
-            int digit = sum % 10;
+        while (temp1 != null || temp2 != null) {
+            int sum = carry;
+            if (temp1 != null)
+                sum += temp1.val;
+            if (temp2 != null)
+                sum += temp2.val;
+            ListNode newNode = new ListNode(sum % 10);
             carry = sum / 10;
 
-            ListNode newNode = new ListNode(digit);
-            tail.next = newNode;
-            tail = tail.next;
+            current.next = newNode;
+            current = current.next;
 
-            l1 = (l1 != null) ? l1.next : null;
-            l2 = (l2 != null) ? l2.next : null;
+            if (temp1 != null)
+                temp1 = temp1.next;
+            if (temp2 != null)
+                temp2 = temp2.next;
         }
-
-        ListNode result = dummyHead.next;
-        dummyHead.next = null;
-        return result;
+        if (carry != 0) {
+            ListNode newNode = new ListNode(carry);
+            current.next = newNode;
+        }
+        return dummyNode.next;
     }
 }
